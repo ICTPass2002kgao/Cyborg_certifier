@@ -85,13 +85,13 @@ WSGI_APPLICATION = 'roboticCertifier.wsgi.application'
 
 DATABASES = {
 'default': {
-'ENGINE': 'django.db.backends.postgresql',
-'NAME': 'railway',
-'USER':'postgres',
-'PASSWORD': 'zVmRdmQXlNkqEnwqcJZFUJnWfhgmndiw',
-'HOST':  'viaduct.proxy.rlwy.net',
-'PORT': '41669',  
-}
+    'ENGINE': 'django.db.backends.postgresql',
+    'NAME': 'railway',
+    'USER':'postgres',
+    'PASSWORD': 'zVmRdmQXlNkqEnwqcJZFUJnWfhgmndiw',
+    'HOST':  'viaduct.proxy.rlwy.net',
+    'PORT': '41669',  
+    }
 }
 
 
