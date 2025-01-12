@@ -145,7 +145,11 @@ CORS_ALLOW_METHODS = [
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
+MEDIA_URL = '/media/' 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+FILE_UPLOAD_MAX_MEMORY_SIZE = 2621440 
+ 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 REST_FRAMEWORK = {
@@ -158,11 +162,7 @@ REST_FRAMEWORK = {
     ],
 }
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-MEDIA_URL = '/media/' 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'media')
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
-FILE_UPLOAD_MAX_MEMORY_SIZE = 2621440 
- 
+
  
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
