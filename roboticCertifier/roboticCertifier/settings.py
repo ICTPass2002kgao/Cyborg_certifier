@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-b#ez@%c%tx2#uu(_b@2e8v8ej8d!9$9(&kaz!51w0en@$l@rh7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['10.0.2.2','127.0.0.1','192.168.0.242','.vercel.app','.now.sh']
 
@@ -160,6 +160,7 @@ REST_FRAMEWORK = {
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/' 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'media')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
 FILE_UPLOAD_MAX_MEMORY_SIZE = 2621440 
  
  
@@ -172,8 +173,4 @@ EMAIL_HOST_PASSWORD = 'owwa msaz ueit juum'
 DEFAULT_FROM_EMAIL = 'setamict@gmail.com' 
 
 STATIC_URL= '/static/'
-
-STATICFILES_DIRS= [
-
-    BASE_DIR/"static",
-]
+ 
