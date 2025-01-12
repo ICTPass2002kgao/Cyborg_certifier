@@ -2,7 +2,7 @@
     "version": 2,
     "builds": [
       {
-        "src": "roboticCertifier/wsgi.py",
+        "src": "roboticCertifier/roboticCertifier/wsgi.py",
         "use": "@vercel/python",
         "config": { "maxLambdaSize": "15mb", "runtime": "python3.12.8" }
       },
@@ -19,7 +19,7 @@
       },
       {
         "src": ".*",
-        "dest": "roboticCertifier/wsgi.py"
+        "dest": "roboticCertifier/roboticCertifier/wsgi.py"
       }
     ],
     "rewrites": [{ "source": "/(.*)", "destination": "/" }]
