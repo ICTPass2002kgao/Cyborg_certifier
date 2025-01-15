@@ -17,6 +17,7 @@ from corsheaders.defaults import default_headers
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+CSRF_TRUSTED_ORIGINS = ['https://cyborgcertifier-production.up.railway.app/']
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -27,7 +28,7 @@ SECRET_KEY = 'django-insecure-b#ez@%c%tx2#uu(_b@2e8v8ej8d!9$9(&kaz!51w0en@$l@rh7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['192.168.0.242','127.0.0.1','10.0.2.2']
+ALLOWED_HOSTS = ['192.168.0.242','127.0.0.1','10.0.2.2','https://cyborgcertifier-production.up.railway.app/']
 
 # Application definition
 
