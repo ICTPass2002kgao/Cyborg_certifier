@@ -171,9 +171,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'setamict@gmail.com'
-EMAIL_HOST_PASSWORD = 'owwa msaz ueit juum'
-DEFAULT_FROM_EMAIL = 'setamict@gmail.com' 
+EMAIL_HOST_USER = 'cyborgcertifier@gmail.com'
+EMAIL_HOST_PASSWORD = 'yzol vzjm vuld coju'
+DEFAULT_FROM_EMAIL = 'cyborgcertifier@gmail.com' 
 
 STATIC_URL= '/static/'
  
