@@ -218,7 +218,7 @@
         formData.append('address',address.value);
         const csrftoken = document.querySelector('[name=csrf-token]').content;
         try {
-            const response = await fetch('http://127.0.0.1:8000/upload_stamp/', {
+            const response = await fetch('https://cyborgcertifier-production.up.railway.app/upload_stamp/', {
                 method: 'POST',
                 body: formData,
                 headers:{
