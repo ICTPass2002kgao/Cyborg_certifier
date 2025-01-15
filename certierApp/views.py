@@ -222,7 +222,7 @@ def register_user(request):
 
  
 def home(request): 
-    documents = userDocuments.objects.all() 
+    documents = UserFaceVerification.objects.all() 
     context = {
         'documents': documents
     }
@@ -338,12 +338,12 @@ def upload_certified_document(request):
 @csrf_exempt
 def login_user(request):
     if request.method == 'POST':
-        email = request.POST.get('email')
+        username = request.POST.get('username')
         password = request.POST.get('password')
-        user = authenticate(request, username=email, password=password)
+        user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('home')   
+            return redirect('create_stamp')   
         else: 
             messages.error(request, 'Invalid email or password.')
             return redirect('login_user')                  

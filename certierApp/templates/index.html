@@ -19,52 +19,7 @@
       </div>
     </nav>
 
-    <table class="table table-secondary">
-      <thead>
-        <tr>
-          <th scope="col">Id</th>
-          <th scope="col">Email</th>
-          <th scope="col">Document</th>
-          <th scope="col">Time and Date</th>
-          <th scope="col">Actions</th>
-          <th scope="col">Certified Document</th>
-          <th scope="col">Send Feedback</th>
-        </tr>
-      </thead>
-      <tbody class="tbody tbody-secondary bg-secondary">
-        {% for document in documents %}
-        <form action="{% url 'upload_certified_document' %}" method="POST" enctype="multipart/form-data">
-          {% csrf_token %}
-        <tr>
-            <th scope="row">{{ document.id }}</th>
-            <td>{{ document.email }}</td>
-            <td>
-                {% if document.pdf %}
-                <a href="{{ document.pdf.url }}" class="btn btn-outlined btn-success" target="_blank">View PDF</a>
-                {% else %} No PDF {% endif %}
-            </td>
-            <td>{{ document.uploaded_at }}</td>
-            <td>
-                {% if document.pdf %}
-                <button class="btn btn-primary" onclick="printDocument('{{ document.pdf.url }}')">Print</button>
-                {% endif %}
-            </td>
-            <td>
-                
-                    <input type="hidden" name="email" value="{{ document.email }}">
-                    <input class="form-control" type="file" name="file" required />
-                
-            </td>
-            <td>
-                    <button class="btn btn-success" type="submit">Send Feedback</button></td>
-        </tr>
-      </form>
-        {% endfor %}
-    </tbody>
-    
-    </table>
- <script src="{% static 'js/main.js' %}"></script>
-
+   
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
@@ -72,3 +27,298 @@
     ></script>
   </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accommodation Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-light">
+    
+    <!-- Sidebar -->
+    <div class="d-flex">
+        <div class="bg-primary text-white vh-100 p-3" style="width: 240px;">
+            <h3 class="mb-4">Accommodation Dashboard</h3>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link text-white" onclick="showSection('dashboard')" role="button">Dashboard Home</a>
+                </li> 
+                <li class="nav-item">
+                    <a class="nav-link text-white" onclick="showSection('manageAccommodations')" role="button">Cyborg Management</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" onclick="showSection('appliedFacilities')" role="button">View Applications</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >Logout</a>
+                </li>
+            </ul>
+        </div>
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Exit</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  Are you sure you want to logout
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                  <a type="button" href="{% url 'logout' %}"  class="btn btn-outline-danger">Yes</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        <!-- Main Content -->
+        <div class="flex-grow-1 p-4">
+            <!-- Dashboard Section -->
+            <div id="dashboard" class="d-block">
+                <h1 class="mb-3">Welcome, {{ user.username }}!</h1>
+                <p>View Cyborg Certifier statistics, and more.</p>
+
+                <!-- Statistics -->
+                <div class="row g-3 mb-4">
+                    <!-- Total Accommodations Card -->
+                    <div class="col-md-4">
+                        <div class="card text-center bg-primary text-white">
+                            <div class="card-body">
+                                   <h3> {{ 2 }} </h3>
+                                <h3 class="card-title">
+                                    <i class="bi bi-house-fill me-2"></i>
+                                </h3>
+                                <p class="card-text">Total Facilities</p>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <!-- Total Views Card -->
+                    <div class="col-md-4">
+                        <div class="card text-center bg-success text-white">
+                            <div class="card-body">
+                                <h3>21</h3>
+                                <h3 class="card-title">
+                                    <i class="bi bi-eye-fill me-2"></i>
+                                </h3>
+                                <p class="card-text">Total views</p>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <!-- Total Applications Card -->
+                    <div class="col-md-4">
+                        <div class="card text-center bg-danger text-white">
+                            <div class="card-body">
+                                <h3>13</h3>
+                                <h3 class="card-title">
+                                    <i class="bi bi-file-earmark-text-fill me-2"></i>
+                                </h3>
+                                <p class="card-text">Total Certified docs>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+
+                <!-- Graphs -->
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <canvas id="viewsChart"></canvas>
+                    </div>
+                    <div class="col-md-6">
+                        <canvas id="applicationsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+ <!-- Manage Accommodation Section -->
+ <div id="manageAccommodations" class="d-none">
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="text-center">Upload Stamp</h3>
+                </div>
+                <div class="card-body">
+                    <form id="uploadStampForm">
+                        <div class="mb-3">
+                            <label for="file" class="form-label">Select Stamp Image</label>
+                            <input type="file" class="form-control" id="file" name="file" accept="image/*" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Enter Address</label>
+                            <input type="text" class="form-control" id="address" name="address" required>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary w-100">Upload Stamp</button>
+                    </form>
+                    <div id="responseMessage" class="mt-3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+ </div>
+     
+
+<div id="appliedFacilities" class="d-none">
+  <table class="table table-secondary">
+    <thead>
+      <tr> 
+        <th scope="col">Address</th>
+        <th scope="col">Stamp</th>
+        <th scope="col">Time and Date</th> 
+      </tr>
+    </thead>
+    <tbody class="tbody tbody-secondary bg-secondary">
+      {% for document in documents %}
+      
+      <tr> 
+          <td>{{ document.address }}</td>
+          <td>
+              {% if document.stamp %}
+              <img src="{{ document.stamp.url }}"  /> 
+              {% else %} No stamp {% endif %}
+          </td>
+          <td>{{ document.uploaded_at }}</td>
+          
+             
+      {% endfor %}
+  </tbody>
+  
+  </table> 
+
+
+ </div>
+
+            <!-- View Applications Section -->
+            
+        </div>
+    </div>
+
+    <script>
+       document.getElementById('uploadStampForm').addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData();
+        const fileInput = document.getElementById('file');
+        const address = document.getElementById('address');
+        formData.append('file', fileInput.files[0],);
+        formData.append('address',address.value);
+        const csrftoken = document.querySelector('[name=csrf-token]').content;
+        try {
+            const response = await fetch('http://127.0.0.1:8000/upload_stamp/', {
+                method: 'POST',
+                body: formData,
+                headers:{
+                    'X-CSRFToken': csrftoken
+
+                }
+            });
+
+            const data = await response.json();
+            const responseMessage = document.getElementById('responseMessage');
+
+            if (response.ok) {
+                responseMessage.innerHTML = `
+                    <div class="alert alert-success">
+                        ${data.message}
+                    </div>
+                `;
+            } else {
+                responseMessage.innerHTML = `
+                    <div class="alert alert-danger">
+                        ${data.error || 'Failed to upload the stamp. Please try again.'}
+                    </div>
+                `;
+            }
+        } catch (error) {
+            document.getElementById('responseMessage').innerHTML = `
+                <div class="alert alert-danger">
+                    An error occurred: ${error.message}
+                </div>
+            `;
+        }
+    });
+        // Toggle Section Visibility
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.d-block, .d-none');
+            sections.forEach(section => {
+                section.classList.add('d-none');
+                section.classList.remove('d-block');
+            });
+            document.getElementById(sectionId).classList.remove('d-none');
+            document.getElementById(sectionId).classList.add('d-block');
+        }
+
+        // Chart.js Configurations
+         document.addEventListener('DOMContentLoaded', function() {
+        const viewsData = [50, 75, 30, 100, 80];
+        const applicationsData = [10, 20, 15, 25, 18];
+        const labels = ["Facility A", "Facility B", "Facility C", "Facility D", "Facility E"];
+
+        // Views Chart
+        const viewsCtx = document.getElementById('viewsChart').getContext('2d');
+        new Chart(viewsCtx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Views',
+                    data: viewsData,
+                    backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Applications Chart
+        const applicationsCtx = document.getElementById('applicationsChart').getContext('2d');
+        new Chart(applicationsCtx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Certified Documents',
+                    data: applicationsData,
+                    fill: false,
+                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+ 
