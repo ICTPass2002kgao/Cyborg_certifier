@@ -6,7 +6,7 @@ from .serializers import FileSerializers  ,CertifiedDocumentSerializers, UserFac
 from rest_framework.permissions import AllowAny,IsAuthenticated
 from .serializers import UserRegistrationSerializer 
 from django.shortcuts import get_object_or_404, render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login,logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import UserFaceVerification, userDocuments ,CertifiedDocumentUpload  
@@ -297,7 +297,12 @@ def get_stamp(request):
     return Response({'data': serializer.data}, status=status.HTTP_200_OK)
 
 def create_stamp(request):
-    return render(request,'upload_stamp.html')
+    
+    documents = UserFaceVerification.objects.all() 
+    context = {
+            'documents': documents
+        }
+    return render(request,'index.html',context)
 
 from django.shortcuts import render, redirect
 from django.core.mail import EmailMessage
@@ -349,4 +354,10 @@ def login_user(request):
             return redirect('login_user')                  
 
     return render(request, 'login.html')  
+         
+@csrf_exempt
+def logout_user(request): 
+    logout(request)
+    return redirect('login_user')                
+ 
      
