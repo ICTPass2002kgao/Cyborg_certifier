@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-b#ez@%c%tx2#uu(_b@2e8v8ej8d!9$9(&kaz!51w0en@$l@rh7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.242','127.0.0.1','10.0.2.2','cyborgcertifier-production.up.railway.app']
+ALLOWED_HOSTS = ['172.20.10.4','192.168.0.242','127.0.0.1','10.0.2.2','cyborgcertifier-production.up.railway.app']
 
 # Application definition
 
@@ -49,7 +49,6 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -145,7 +144,7 @@ CORS_ALLOW_METHODS = [
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR,  'staticfles')
+STATIC_ROOT = os.path.join(BASE_DIR,  'staticfiles')
 STATICFILES_DIRS =[
     os.path.join(BASE_DIR,'static')
 ]
@@ -171,9 +170,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'cyborgcertifier@gmail.com'
-EMAIL_HOST_PASSWORD = 'yzol vzjm vuld coju'
-DEFAULT_FROM_EMAIL = 'cyborgcertifier@gmail.com' 
+EMAIL_HOST_USER = 'setamict@gmail.com'
+EMAIL_HOST_PASSWORD = 'owwa msaz ueit juum'
+DEFAULT_FROM_EMAIL = 'setamict@gmail.com' 
 
 STATIC_URL= '/static/'
  
