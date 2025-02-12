@@ -156,20 +156,20 @@ def verifyFace(request):
 
         if is_same:
             print("The faces match!")
-            pdf = merge_images_with_custom_layout(id_back_face, stamp,id_face_file) 
+            pdf = merge_images_with_custom_layout(id_back_face, stamp, id_face_file) 
+             
             if isinstance(pdf, str):
                 with open(pdf, 'rb') as f:
                     pdf_file_content = f.read()
             else:
                 pdf_file_content = pdf.read()  
- 
+         
             file_type = mimetypes.guess_type('output.pdf')[0] or 'application/pdf'
             print(f"Generated PDF file type: {file_type}")
-
+ 
             if file_type != 'application/pdf':
                 return Response({'error': 'Invalid file type. Only PDFs are allowed!'}, status=status.HTTP_400_BAD_REQUEST)
-
-            
+ 
             email_message = EmailMessage(
                 subject='Your Certified Document Feedback',
                 body='Please find the document attached.\n\n\n We\'r happy to work with you',
@@ -177,7 +177,6 @@ def verifyFace(request):
                 to=[email]
             )
 
-          
             email_message.attach('Certified_ID.pdf', pdf_file_content, file_type)
             try:
                 print(f"Sending an email to {email}")
@@ -186,28 +185,24 @@ def verifyFace(request):
             except Exception as e:
                 print(f"Error occurred: {str(e)}")   
                 return Response({'error': f'An error occurred: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-            
-
-            
+ 
             pdf_file_path = os.path.join(settings.MEDIA_ROOT, 'certified_document.pdf')
             with open(pdf_file_path, 'wb') as f:
-                f.write(pdf_file_content)
-                
+                f.write(pdf_file_content) 
             user_face_verification = UserFaceVerification.objects.create(
                 email=email,
                 pdf_path=pdf_file_path, 
             )
 
             print(f"Document saved at: {user_face_verification.pdf_path}")
- 
+         
             pdf_url = default_storage.url(user_face_verification.pdf_path)
             print(f"PDF URL: {pdf_url}")
             print(f"PDF saved at: {pdf_url}")
-
+ 
             return Response({
                 'match': "Matched",
-                'pdf_url': pdf_url
+                'pdf_url': pdf_url   
             }, status=status.HTTP_200_OK)
         else:
             print("The faces do NOT match!")
