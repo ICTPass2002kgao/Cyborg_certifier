@@ -50,6 +50,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -151,7 +152,7 @@ STATICFILES_DIRS =[
 MEDIA_URL = '/media/' 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 FILE_UPLOAD_MAX_MEMORY_SIZE = 2621440 
-STATICSTORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICSTORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 REST_FRAMEWORK = {
@@ -173,6 +174,4 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'setamict@gmail.com'
 EMAIL_HOST_PASSWORD = 'owwa msaz ueit juum'
 DEFAULT_FROM_EMAIL = 'setamict@gmail.com' 
-
-STATIC_URL= '/static/'
  
