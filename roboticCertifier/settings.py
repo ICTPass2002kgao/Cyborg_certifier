@@ -14,12 +14,9 @@ import os
 from pathlib import Path
 from corsheaders.defaults import default_headers
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-CSRF_TRUSTED_ORIGINS = ['https://cyborgcertifier-production.up.railway.app/',
-    "http://localhost:5173",   
-    "https://cyborg-certify.netlify.app/",]
+CSRF_TRUSTED_ORIGINS = ['https://cyborgcertifier-production.up.railway.app']
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -30,14 +27,7 @@ SECRET_KEY = 'django-insecure-b#ez@%c%tx2#uu(_b@2e8v8ej8d!9$9(&kaz!51w0en@$l@rh7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['172.20.10.4',
-                 '192.168.0.242',
-                 '127.0.0.1',
-                 '10.0.2.2',
-                 'cyborgcertifier-production.up.railway.app',
-                 "http://localhost:5173",   
-                 "https://cyborg-certify.netlify.app/",
-                 ]
+ALLOWED_HOSTS = ['172.20.10.4', '192.168.0.242', '127.0.0.1', '10.0.2.2', 'cyborgcertifier-production.up.railway.app']
 
 # Application definition
 
@@ -52,13 +42,14 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'rest_framework.authtoken',
-    
-] 
+]
+
 CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",   
-    "https://cyborg-certify.netlify.app/",   
+    "http://localhost:5173",
+    "https://cyborg-certify.netlify.app",  # Removed trailing slash
 ]
+
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
@@ -91,21 +82,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'roboticCertifier.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-'default': {
-    'ENGINE': 'django.db.backends.postgresql',
-    'NAME': 'railway',
-    'USER':'postgres',
-    'PASSWORD': 'zVmRdmQXlNkqEnwqcJZFUJnWfhgmndiw',
-    'HOST':  'viaduct.proxy.rlwy.net',
-    'PORT': '41669',  
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'zVmRdmQXlNkqEnwqcJZFUJnWfhgmndiw',
+        'HOST': 'viaduct.proxy.rlwy.net',
+        'PORT': '41669',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -125,7 +114,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -136,13 +124,14 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOW_HEADERS = list(default_headers) + [
     'Authorization',
     'Content-Type',
     'X-Requested-With',
-    'Accept', 
+    'Accept',
 ]
 
 CORS_ALLOW_METHODS = [
@@ -153,20 +142,27 @@ CORS_ALLOW_METHODS = [
     "DELETE",
     "OPTIONS",
 ]
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR,  'staticfiles')
-STATICFILES_DIRS =[
-    os.path.join(BASE_DIR,'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')  # Ensure this directory exists
 ]
-MEDIA_URL = '/media/' 
+
+MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-FILE_UPLOAD_MAX_MEMORY_SIZE = 2621440 
-STATICSTORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' 
+
+FILE_UPLOAD_MAX_MEMORY_SIZE = 2621440
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'  # Fixed key name
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
+
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',  # Change this as needed
@@ -176,14 +172,13 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ],
 }
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
- 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'setamict@gmail.com'
 EMAIL_HOST_PASSWORD = 'owwa msaz ueit juum'
-DEFAULT_FROM_EMAIL = 'setamict@gmail.com' 
- 
+DEFAULT_FROM_EMAIL = 'setamict@gmail.com'
