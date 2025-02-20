@@ -45,8 +45,11 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     
 ] 
-CORS_ALLOW_ALL_ORIGINS = True
-
+CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",   
+    "https://cyborg-certify.netlify.app/",   
+]
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
