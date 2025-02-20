@@ -222,6 +222,7 @@ def done(request):
     return render(request, 'done.html', ) 
 
 
+@csrf_exempt
 @permission_classes([AllowAny])
 @api_view(['POST'])
 def upload_file(request):  
