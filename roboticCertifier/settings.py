@@ -123,13 +123,7 @@ USE_I18N = True
 USE_TZ = True
 
 
-
-CORS_ALLOW_HEADERS = list(default_headers) + [
-    'Authorization',
-    'Content-Type',
-    'X-Requested-With',
-    'Accept',
-]
+ 
 
 CORS_ALLOW_METHODS = [
     "GET",
