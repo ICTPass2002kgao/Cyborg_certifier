@@ -20,14 +20,14 @@ class UserFaceVerification(models.Model):
     pdf_path = models.FileField(upload_to='verified_documents/')  
     
     def __str__(self):
-        return self.uploaded_at    
+        return self.email    
 class CertifiedDocumentUpload(models.Model):
     uploaded_at=models.DateTimeField(auto_now=True,blank=True,null=True)
     stamp = models.ImageField(upload_to='stamps',verbose_name='Stamb_image',blank=True,null=True)
     address = models.CharField(max_length = 255, unique= True)
     email = models.EmailField(verbose_name="Email",max_length=254,blank=True,null=True)
     def __str__(self):
-        return self.email
+        return self.address
     
 class CustomUser(AbstractUser): 
     groups = models.ManyToManyField(

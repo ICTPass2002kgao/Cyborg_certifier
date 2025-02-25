@@ -214,6 +214,7 @@
         const formData = new FormData();
         const fileInput = document.getElementById('file');
         const address = document.getElementById('address');
+        
         formData.append('file', fileInput.files[0],);
         formData.append('address',address.value);
         const csrftoken = document.querySelector('[name=csrf-token]').content;
