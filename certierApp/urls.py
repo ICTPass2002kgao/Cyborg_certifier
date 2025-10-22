@@ -14,6 +14,7 @@ urlpatterns = [
     path('', views.login_user, name='login_user'),
     path('log-out', views.login_user, name='logout'),
     path('verify-faces/', views.verifyFace, name='verify-face'),
+    path('compare-faces/', views.recognize_face, name='compare-faces'),
     
 ]
 
